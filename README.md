@@ -1,12 +1,12 @@
-# 🚀 TP DevSecOps - Pipeline GitOps Locale Sécurisée
+# TP DevSecOps - Pipeline GitOps Locale Sécurisée
 
-## 📚 Contexte
+##  Contexte
 
 Ce projet a pour objectif de mettre en place une **pipeline GitOps complète en local**, permettant de déployer automatiquement une infrastructure de monitoring (Prometheus, Grafana, Jenkins) tout en intégrant des contrôles de sécurité à chaque étape.
 
 ---
 
-## 🎯 Objectifs
+##  Objectifs
 
 * Implémenter une approche **GitOps**
 * Automatiser le déploiement avec **Terraform**
@@ -23,7 +23,7 @@ Ce projet a pour objectif de mettre en place une **pipeline GitOps complète en 
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```text
                 ┌──────────────────────────────┐
@@ -56,7 +56,7 @@ Ce projet a pour objectif de mettre en place une **pipeline GitOps complète en 
 
 ---
 
-## 📁 Structure du projet
+##  Structure du projet
 
 ```bash
 tp-gitops-local/
@@ -74,9 +74,9 @@ tp-gitops-local/
 
 ---
 
-## ⚙️ Fonctionnement du projet
+##  Fonctionnement du projet
 
-### 🔁 GitOps Workflow
+###  GitOps Workflow
 
 1. Le code est versionné dans GitHub
 2. Un `git push` déclenche Jenkins
@@ -89,21 +89,21 @@ tp-gitops-local/
 
 ---
 
-## 🔐 Sécurité intégrée
+##  Sécurité intégrée
 
-### 🛡️ Checkov
+### Checkov
 
 * Analyse Terraform / Ansible / Dockerfile
 * Vérifie les bonnes pratiques sécurité
 
-### 🧪 Trivy
+### Trivy
 
 * Scan des images Docker
 * Détection vulnérabilités HIGH / CRITICAL
 
 ---
 
-## 🚀 Déploiement
+## Déploiement
 
 ### 1. Terraform
 
@@ -122,7 +122,7 @@ ansible-playbook -i inventory.yml playbook.yml
 
 ---
 
-## 🧪 Tests
+## Tests
 
 ```bash
 python3 tests/test_infrastructure.py
@@ -137,7 +137,7 @@ Vérifie :
 
 ---
 
-## 📊 Accès aux services
+## Accès aux services
 
 | Service    | URL                   |
 | ---------- | --------------------- |
@@ -152,7 +152,7 @@ Vérifie :
 
 ---
 
-## 🔍 Validation
+## Validation
 
 ```bash
 ./scripts/validate-gitops.sh
@@ -160,7 +160,7 @@ Vérifie :
 
 ---
 
-## 🔐 Accès Git (SSH)
+## Accès Git (SSH)
 
 Le projet utilise uniquement **SSH** :
 
@@ -170,7 +170,7 @@ git remote set-url origin git@github.com:<USER>/TP-DevSecOps.git
 
 ---
 
-## 🧠 Concepts clés
+## Concepts clés
 
 * GitOps
 * Infrastructure as Code (IaC)
@@ -181,12 +181,10 @@ git remote set-url origin git@github.com:<USER>/TP-DevSecOps.git
 
 ---
 
-## 📌 Résultat attendu
+## Résultat attendu
 
 * Infrastructure déployée automatiquement
 * Pipeline Jenkins fonctionnelle
 * Aucun scan critique
 * Monitoring opérationnel
-* Tests validés
-
-* 
+* Tests validés 
