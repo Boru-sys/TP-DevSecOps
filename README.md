@@ -189,10 +189,4 @@ git remote set-url origin git@github.com:<USER>/TP-DevSecOps.git
 * Monitoring opérationnel
 * Tests validés
 
----
-
-## 👨‍💻 Auteur
-
-Projet réalisé dans le cadre du cursus **CESI - DevSecOps / Infrastructure & Cybersecurity**
-
----
+* 
