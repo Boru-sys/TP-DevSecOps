@@ -1,0 +1,9 @@
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.retry
+.vault_pass
+secrets/
+*.log
+.env
