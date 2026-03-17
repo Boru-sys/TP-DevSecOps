@@ -1,0 +1,93 @@
+---
+- name: Configure Monitoring Stack
+  hosts: localhost
+  become: yes
+
+  vars:
+    prometheus_version: "latest"
+    grafana_version: "latest"
+
+  tasks:
+    - name: Ensure monitoring directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - /tmp/monitoring/prometheus
+        - /tmp/monitoring/grafana
+        - /tmp/monitoring/alertmanager
+
+    - name: Generate Prometheus configuration
+      template:
+        src: prometheus.yml.j2
+        dest: "{{ playbook_dir }}/../../monitoring/prometheus/prometheus.yml"
+        mode: "0644"
+
+    - name: Generate Grafana datasources
+      template:
+        src: datasources.yml.j2
+        dest: "{{ playbook_dir }}/../../monitoring/grafana/datasources.yml"
+        mode: "0644"
+
+    - name: Check Docker containers health
+      docker_container_info:
+        name: "{{ item }}"
+      register: container_info
+      loop:
+        - prometheus
+        - grafana
+        - jenkins
+
+    - name: Display container status
+      debug:
+        msg: "Container {{ item.item }} is {{ item.container.State.Status }}"
+      loop: "{{ container_info.results }}"
+      when: item.container is defined
+
+    - name: Configure Prometheus scrape configs
+      blockinfile:
+        path: "{{ playbook_dir }}/../../monitoring/prometheus/prometheus.yml"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+        block: |
+          scrape_configs:
+            - job_name: 'prometheus'
+              static_configs:
+                - targets: ['localhost:9090']
+
+            - job_name: 'grafana'
+              static_configs:
+                - targets: ['grafana:3000']
+
+            - job_name: 'jenkins'
+              metrics_path: '/prometheus'
+              static_configs:
+                - targets: ['jenkins:8080']
+
+            - job_name: 'docker'
+              static_configs:
+                - targets: ['172.20.0.1:9323']
+
+    - name: Setup Grafana dashboards
+      uri:
+        url: "http://localhost:3000/api/dashboards/db"
+        method: POST
+        user: admin
+        password: gitops2024
+        force_basic_auth: yes
+        body_format: json
+        body:
+          dashboard:
+            title: "GitOps Monitoring"
+            panels:
+              - title: "Container CPU Usage"
+                type: "graph"
+                targets:
+                  - expr: "rate(container_cpu_usage_seconds_total[5m])"
+
+              - title: "Container Memory Usage"
+                type: "graph"
+                targets:
+                  - expr: "container_memory_usage_bytes"
+          overwrite: true
+      ignore_errors: yes

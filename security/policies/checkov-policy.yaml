@@ -1,0 +1,21 @@
+metadata:
+  name: "GitOps Security Policy"
+  guidelines: "https://docs.bridgecrew.io/docs"
+
+checks:
+  - CKV_DOCKER_1: "Ensure port 22 is not exposed"
+  - CKV_DOCKER_2: "Ensure HEALTHCHECK instructions are added"
+  - CKV_DOCKER_3: "Ensure USER instruction is used"
+  - CKV_DOCKER_4: "Ensure COPY is used instead of ADD"
+  - CKV_DOCKER_5: "Ensure MAINTAINER is not used"
+  - CKV_DOCKER_6: "Ensure LABEL is used for metadata"
+  - CKV_DOCKER_7: "Ensure no secrets in ENV"
+  - CKV_DOCKER_8: "Ensure non-root user"
+
+terraform:
+  - CKV_TF_1: "Ensure Terraform module sources use versions"
+  - CKV_TF_2: "Ensure Terraform outputs don't expose secrets"
+
+ansible:
+  - CKV_ANSIBLE_1: "Ensure no_log is set for sensitive tasks"
+  - CKV_ANSIBLE_2: "Ensure become is used appropriately"
